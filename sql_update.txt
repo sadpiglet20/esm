@@ -1,0 +1,17 @@
+
+CREATE TABLE IF NOT EXISTS `company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(500) NOT NULL,
+  `delete_flag` tinyint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`id`, `company_name`, `delete_flag`) VALUES
+(2, 'cong ty nha dat quan 2', 0),
+(6, 'cong ty nha dat quan 9', 0),
+(11, 'cong ty nha dat quan 3', 0),
+(12, 'teset for edit1', 0);
