@@ -1,14 +1,14 @@
 <?php
-class Company_model extends CI_Model
+class Adminusers_model extends CI_Model
 {
     function __construct() {
        parent::__construct();
     }
 
     function findAll() {
-        $this->db->select('id, company_name');
-		$this->db->where(array('delete_flag != ' => 1));
-        $query = $this->db->get('company');
+        $this->db->select('*');
+		$this->db->where(array('user_type != ' => 'SA'));
+        $query = $this->db->get('tbl_admin_users');
 		if ($query->num_rows() > 0)
 		{
         	return $query->result_array();
@@ -16,30 +16,13 @@ class Company_model extends CI_Model
 		return array();
     }
 	
-    function findAllSelect() {
-        $this->db->select('id, company_name');
-		$this->db->where(array('delete_flag != ' => 1));
-		$this->db->order_by('company_name','asc');
-        $query = $this->db->get('company');
-		if ($query->num_rows() > 0)
-		{
-        	$arr = $query->result_array();
-			$arrReturn = array();
-			foreach ($arr as $v) {
-				$arrReturn[$v['id']] = $v['company_name'];
-			}
-			return $arrReturn; 
-		}
-		return array();
-    }	
-	
 	function findById($id) {
 		if (!preg_match('/^[-0-9]+$/', $id)) {
 	            return array();
 	    }
 		$this->db->select('*');
 		$this->db->where(array('id = ' => $id));
-        $query = $this->db->get('company');
+        $query = $this->db->get('tbl_admin_users');
 		if ($query->num_rows() > 0)	{
         	return $query->row_array();
 		}	
@@ -49,8 +32,8 @@ class Company_model extends CI_Model
 	function findByArray($arrCond) {
 		$this->db->select('*');
 		$this->db->where($arrCond);
-		$this->db->where_in(array('delete_flag != ' => 1));
-        $query = $this->db->get('company');
+		$this->db->where(array('user_type != ' => 'SA'));
+        $query = $this->db->get('tbl_admin_users');
 		if ($query->num_rows() > 0)	{
         	return $query->row_array();
 		}	
@@ -58,17 +41,23 @@ class Company_model extends CI_Model
 	}	
 	
 	
-	function saveCompany($data, $id)
+	function saveUser($data, $id)
 	{
-		unset($data['submit'], $data['id']);
+		unset($data['submit'], $data['id'],$data['old_password'],
+		      $data['new_password'],$data['id'], $data['isChangePass']);
 		if (!is_array($data)){
 			return false;
+		}
+		if (!empty($data['password']) && trim($data['password']) != '') {
+			$data['password'] = md5($data['password']);
+		} else {
+			unset($data['password']);
 		}
 		// insert
 		if (empty($id))
 		{
 			try {
-	        	$this->db->insert('company', $data);
+	        	$this->db->insert('tbl_admin_users', $data);
 	        } catch (Exception $ex) {
 	        	return false;
 	        }
@@ -76,7 +65,7 @@ class Company_model extends CI_Model
 		// update
 		else if(preg_match('/^[-0-9]+$/', $id)) {
 			try {
-	        	$this->db->update('company', $data, "id = " . $id);
+	        	$this->db->update('tbl_admin_users', $data, "id = " . $id);
 	        } catch (Exception $ex) {
 	        	return false;
 	        }
@@ -88,13 +77,13 @@ class Company_model extends CI_Model
 		return true;
 	}
 
-	function delCompany($id)
+	function delAdminUsers($id)
 	{
 		if(!preg_match('/^[-0-9]+$/', $id)) {
 			return false;
 		}
 		try {
-			$this->db->delete('company', array('id' => $id));
+			$this->db->delete('tbl_admin_users', array('id' => $id));
 		} catch (Exception $ex) {
         	return false;
 	    }
@@ -103,8 +92,9 @@ class Company_model extends CI_Model
 	
 	// for admin
     function findPageItems($offset, $limit = ADMIN_PAGE_MAX_RECORD) {
-        $sql = " select * from company
-                 where 1 = 1 order by id desc limit ?,?  ";
+        $sql = " select adu.*, cp.company_name from tbl_admin_users adu
+                 left join company cp on cp.id = adu.company_id and cp.delete_flag = 0
+                 where 1 = 1 and adu.user_type != 'SA' order by adu.id desc limit ?,?  ";
 		$query = $this->db->query($sql ,array(@intval($offset), @intval($limit)));
         $result = $query->result_array();
         if (!empty($result) && count($result) > 0) {
@@ -115,7 +105,7 @@ class Company_model extends CI_Model
     
 		// for admin
     function countAll() {
-    	$sql = " select count(id) cnt from company where delete_flag = 0 ";
+    	$sql = " select count(id) cnt from tbl_admin_users where user_type != 'SA' ";
     	$query = $this->db->query($sql);
     	$result = $query->row_array();
     	if (!empty($result) && count($result) > 0) {

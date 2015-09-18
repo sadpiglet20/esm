@@ -16,84 +16,101 @@ Downloaded from http://devzone.co.in
               <li class="active"><i class="icon-file-alt"></i> Users</li>
               
               
-              <button class="btn btn-primary" type="button" style="float:right;">Add New User</button>
+              <button class="btn btn-primary" type="button" style="float:right;" id="add_new_user">Add New</button>
               <div style="clear: both;"></div>
             </ol>
           </div>
         </div><!-- /.row -->
-
-        
-            
-            <div class="table-responsive">
-              <table class="table table-hover tablesorter">
-                <thead>
-                  <tr>
-                    <th class="header">UserName <i class="fa fa-sort"></i></th>
-                    <th class="header">Email <i class="fa fa-sort"></i></th>
-                    <th class="header">Last Login <i class="fa fa-sort"></i></th>
-                    <th class="header">Signup Date<i class="fa fa-sort"></i></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Sumit</td>
-                    <td>sumit@example.com</td>
-                    <td>Jan 1,2014</td>
-                    <td>Jan 1,2014</td>
-                  </tr>
-                  <tr>
-					<td>Ravi</td>
-                    <td>Ravi@example.com</td>
-                    <td>Jan 1,2014</td>
-                    <td>Jan 1,2014</td>
-                  </tr>
-                  <tr>
-                    <td>Tom</td>
-                    <td>Tom@example.com</td>
-                    <td>Jan 3,2014</td>
-                    <td>Jan 1,2014</td>
-                  </tr>
-                  <tr>
-                   <td>Tina</td>
-                    <td>Tina@example.com</td>
-                    <td>Jan 1,2014</td>
-                    <td>Jan 1,2014</td>
-                  </tr>
-                  <tr>
-                    <td>Sam</td>
-                    <td>Sam@example.com</td>
-                    <td>Jan 1,2014</td>
-                    <td>Jan 1,2014</td>
-                  </tr>
-                  <tr>
-                    <td>John</td>
-                    <td>John@example.com</td>
-                    <td>Oct 23,2013</td>
-                    <td>June 5,2014</td>
-                  </tr>
-                  <tr>
-                    <td>Joseph</td>
-                    <td>Joseph@example.com</td>
-                    <td>Jan 1,2014</td>
-                    <td>Jan 1,2014</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="table-responsive" id="box">
+              <?php echo $this->load->view('admin/vwUserList');?>
             </div>
-        
-        <ul class="pagination pagination-sm">
-                <li class="disabled"><a href="#"><<</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">>></a></li>
-              </ul>
-        
-        
+        <?php if (!empty($dataItem)) { ?>
+	        <ul class="pagination pagination-sm" id="paging_link">
+	                <?php echo $paging_link;?>
+	        </ul>
+        <?php } ?>
+        <form role="form" id="form" name="form" action="" method="post">
+        	<input type="hidden" value="" id="id" name="id">
+        </form>
       </div><!-- /#page-wrapper -->
 
 <?php
 $this->load->view('admin/vwFooter');
 ?>
+
+<script type="text/javascript" language="javaScript">
+		$(document).ready(function() {
+			if (typeof jQuery.fn.live == 'undefined' || !(jQuery.isFunction(jQuery.fn.live))) {
+			  jQuery.fn.extend({
+			      live: function (event, callback) {
+			         if (this.selector) {
+			              jQuery(document).on(event, this.selector, callback);
+			          }
+			      }
+			  });
+			}			
+			$('#add_new_user').click(function(){
+				window.location.href = '/admin/users/add_user';
+			});
+			$('[id^="edit_"]').live('click',function() { edit_click(this); return false; });
+			$('[id^="delete_"]').live('click',function() { delete_search_click(this); return false; });
+			$('[id^="paging_link"] a').live('click',function() { pagination_link_click(this); return false; });
+		});
+		
+		function pagination_link_click(elm) {
+			var _offset = 0;
+			_offset = $(elm).attr('href');
+			_offset = _offset.replace("#/", "");
+			if (isNaN(_offset)) {
+				_offset = 0;
+			}
+			
+		$.ajax({
+				type: "POST",
+				url: "<?php echo site_url('admin/ajax/get_admin_user_list/')?>",
+				data: {
+					num_items: <?php echo ADMIN_PAGE_MAX_RECORD;?>,
+					offset: _offset,
+				},
+				success: function(data) {
+					data = $.parseJSON(data);
+						$('#box').html(data.item_list);
+						$('#paging_link').html(data.paging_link);
+						//$('[id^="paging_link"] .active a').each(function(elm){
+							//alert(elm.html());
+						//});
+						// remove all current, only set current for this offset
+						
+		 		}
+			});	
+		}		
+		
+		function edit_click(elm)
+		{
+			var id = -1;
+			if( $(elm).attr('id').indexOf("edit_") != -1 ) {
+				id = parseInt($(elm).attr('id').replace("edit_", ""));
+				if (isNaN(id)) {
+					id = -1;
+				}
+				$('#id').val(id);
+				$(location).attr('href', '/admin/users/add_user/' + $('#id').val());    
+			}
+		}		
+		
+		function delete_search_click(elm)
+		{
+			var r = confirm("Do you want to delete this user?");
+			if (r == true) {
+				var id = -1;
+				if( $(elm).attr('id').indexOf("delete_") != -1 ) {
+					id = parseInt($(elm).attr('id').replace("delete_", ""));
+					if (isNaN(id)) {
+						id = -1;
+					}
+					$('#id').val(id);
+					$('#form').submit();   
+				}	    
+			} 										
+		}
+</script>

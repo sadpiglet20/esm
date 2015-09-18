@@ -60,18 +60,18 @@ $this->load->view('admin/vwFooter');
 			$('#add_new_product').click(function(){
 				window.location.href = '/admin/company/add_company';
 			});
-			$('[id^="edit_"]').click(function() { edit_click(this); return false; });
-			$('[id^="delete_"]').click(function() { delete_search_click(this); return false; });
+			$('[id^="edit_"]').live('click',function() { edit_click(this); return false;});
+			$('[id^="delete_"]').live('click',function() { delete_search_click(this); return false; });
 			$('[id^="paging_link"] a').live('click',function() { pagination_link_click(this); return false; });
 		});
 		
 		function pagination_link_click(elm) {
 			var _offset = 0;
-			_offset = $(elm).html();
-			if (isNaN(_offset)) {
-				_offset = 1;
-			}
-			
+				_offset = $(elm).attr('href');
+				_offset = _offset.replace("#/", "");
+				if (isNaN(_offset)) {
+					_offset = 0;
+				}
 		$.ajax({
 				type: "POST",
 				url: "<?php echo site_url('admin/ajax/get_company_list/')?>",
@@ -120,7 +120,4 @@ $this->load->view('admin/vwFooter');
 				}	    
 			} 										
 		}
-		
-		
-		
 </script>

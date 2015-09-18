@@ -52,8 +52,8 @@ class Home extends CI_Controller {
             if ($this->form_validation->run() == FALSE) {
                 $this->load->view('admin/vwLogin');
             } else {
-                $salt = '5&JDDlwz%Rwh!t2Yg-Igae@QxPzFTSId';
-                $enc_pass  = md5($salt.$password);
+                // $salt = '5&JDDlwz%Rwh!t2Yg-Igae@QxPzFTSId';
+                $enc_pass  = md5($password);
                 $sql = "SELECT * FROM tbl_admin_users WHERE username = ? AND password = ?";
                 $val = $this->db->query($sql,array($user ,$enc_pass ));
 
