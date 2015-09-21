@@ -40,7 +40,7 @@ class Company extends CI_Controller {
     public function add_company($id = '') {
         $arr['page'] = 'company';
 		// TODO cần thêm thông tin logo công ty nữa
-        $this->form_validation->set_rules('company_name', 'Company Name', 'trim|required|callback_is_duplicate_name[Company Name]');
+        $this->form_validation->set_rules('company_name', 'Company Name', "trim|required|callback_is_duplicate_name[{$id}]");
 		$arr['mode'] = 'insert';
 		$arr['id'] = $id;
 		$arrPost = array();
@@ -90,8 +90,8 @@ class Company extends CI_Controller {
         // Code goes here
     }
 	 
-	public function is_duplicate_name($name, $field_name) {
-		$arrData = $this->company_model->findByArray(array('company_name' => $name));
+	public function is_duplicate_name($name, $id) {
+		$arrData = $this->company_model->findByArray(array('company_name' => $name, 'id != ' => (int)$id));
 		if (empty($arrData)) {
 			return TRUE;
         } else {

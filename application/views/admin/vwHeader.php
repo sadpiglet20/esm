@@ -55,9 +55,14 @@ Downloaded from http://devzone.co.in
           <ul class="nav navbar-nav side-nav">
             <li <?php echo  $pg =='dash' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 <li <?php echo  $pg =='cms' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/cms"><i class="fa fa-file"></i> CMS</a></li>
-			<li <?php echo  $pg =='company' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/company"><i class="fa fa-file"></i> Company</a></li>              
-            <li <?php echo  $pg =='user' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/users"><i class="fa fa-file"></i> Users</a></li>
-            <li <?php echo  $pg =='products' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/products"><i class="fa fa-file"></i> Products</a></li>
+			<?php 
+			   $gblUserTypeSA =  $this->session->userdata('user_type');
+			if (!empty($gblUserTypeSA) && $gblUserTypeSA == 'SA') { ?>
+				<li <?php echo  $pg =='company' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/company"><i class="fa fa-file"></i> Company</a></li>              
+	            <li <?php echo  $pg =='user' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/users"><i class="fa fa-file"></i> Users</a></li>
+            <?php } ?>
+            <li <?php echo  $pg =='group' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/group"><i class="fa fa-file"></i> Groups</a></li>
+            <li <?php echo  $pg =='customer' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/customer"><i class="fa fa-file"></i> Customers</a></li>
             <li <?php echo  $pg =='contact' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/contactus"><i class="fa fa-file"></i> Contact Us</a></li>
             
         
