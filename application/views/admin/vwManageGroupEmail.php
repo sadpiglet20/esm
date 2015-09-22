@@ -19,10 +19,10 @@ Downloaded from http://devzone.co.in
 
         <div class="row">
           <div class="col-lg-12">
-            <h1>Group <small>Manage Group Email Module</small></h1>
+            <h1>Group <small>Customer</small></h1>
             <ol class="breadcrumb">
               <li><a href="/admin/group/"><i class="icon-dashboard"></i> Group</a></li>
-              <li class="active"><i class="icon-file-alt"></i> List</li>
+              <li class="active"><i class="icon-file-alt"></i> List Customers of <?php echo @$group_name;?></li>
               
               <!-- Add New/Edit must check like cus_import-->
               <button class="btn btn-primary" type="button" style="float:right;" id="add_new_product">Add New</button>
@@ -40,6 +40,7 @@ Downloaded from http://devzone.co.in
         <?php } ?>
         <form role="form" id="form" name="form" action="" method="post">
         	<input type="hidden" value="" id="id" name="id">
+        	<input type="hidden" value="<?php echo $groupId;?>" id="group_id" name="group_id">
         	<input type="hidden" value="<?php echo $user_id;?>" id="user_id" name="user_id">
         </form>
       </div><!-- /#page-wrapper -->
@@ -59,7 +60,7 @@ $this->load->view('admin/vwFooter');
 			  });
 			}			
 			$('#add_new_product').click(function(){
-				window.location.href = '/admin/group/add_group';
+				window.location.href = '/admin/group/add_customer';
 			});
 			$('[id^="edit_"]').live('click',function() { edit_click(this); return false;});
 			$('[id^="delete_"]').live('click',function() { delete_search_click(this); return false; });
@@ -77,7 +78,7 @@ $this->load->view('admin/vwFooter');
 				}
 		$.ajax({
 				type: "POST",
-				url: "<?php echo site_url('admin/ajax/get_group_list/')?>",
+				url: "<?php echo site_url('admin/ajax/get_customer_list/')?>",
 				data: {
 					num_items: <?php echo ADMIN_PAGE_MAX_RECORD;?>,
 					offset: _offset,
@@ -105,7 +106,7 @@ $this->load->view('admin/vwFooter');
 					id = -1;
 				}
 				$('#id').val(id);
-				$(location).attr('href', '/admin/group/add_group/' + $('#id').val());    
+				$(location).attr('href', '/admin/group/add_customer/' + $('#id').val());    
 			}
 		}		
 		

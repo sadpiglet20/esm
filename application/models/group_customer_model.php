@@ -84,7 +84,7 @@ class Group_customer_model extends CI_Model
 	
 	// for admin
     function findPageItems($offset, $limit = ADMIN_PAGE_MAX_RECORD, $user_id) {
-        $sql = " select grc.*, cus.customer_name from t_group_customer grc
+        $sql = " select grc.*, cus.customer_name,cus.customer_email,cus.customer_phone from t_group_customer grc
         	    left join m_customer cus on cus.id = grc.customer_id
                  where grc.group_id = ". $user_id . " order by cus.customer_name asc limit ?,?  ";
 		$query = $this->db->query($sql ,array(@intval($offset), @intval($limit)));
