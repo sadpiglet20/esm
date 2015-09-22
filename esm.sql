@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 3.2.0.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 22, 2015 at 01:23 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Host: localhost
+-- Generation Time: Sep 22, 2015 at 10:33 AM
+-- Server version: 5.5.8
+-- PHP Version: 5.3.3
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -40,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('c11990790785647d56bd00b3fe3fde7c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/50.2.173 Chrome/44.2.2403.173 Safari', 1442829916, 'a:6:{s:9:"user_data";s:0:"";s:2:"id";s:2:"10";s:8:"username";s:4:"demo";s:5:"email";s:22:"abhishek@devzone.co.in";s:14:"is_admin_login";b:1;s:9:"user_type";s:2:"SA";}');
+('bde744346f399b34566269ab896849d2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442917033, 'a:8:{s:9:"user_data";s:0:"";s:2:"id";s:1:"6";s:8:"username";s:5:"demo1";s:5:"email";s:22:"sadpiglet230@yahoo.com";s:14:"is_admin_login";b:1;s:10:"company_id";s:1:"2";s:9:"user_type";s:1:"A";s:8:"group_id";s:1:"8";}');
 
 -- --------------------------------------------------------
 
@@ -80,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `m_customer` (
   `description` varchar(255) DEFAULT NULL,
   `delete_flag` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
 
 --
 -- Dumping data for table `m_customer`
@@ -92,7 +91,36 @@ INSERT INTO `m_customer` (`id`, `customer_name`, `customer_email`, `customer_pho
 (3, 'Khấu Thị Nguyệt Anh 1', 'nguyetanh@gmail.com', '123456789', 10, 'chuyên về bất động sản', 0),
 (4, 'Khấu Thị Nguyệt Anh', 'nguyetanh1@gmail.com', '1234567', 6, 'chuyên về bất động sản1', 0),
 (5, 'Khấu Thị Nguyệt Anh', 'nguyetanh2@gmail.com', '12345678', 6, 'chuyên về bất động sản1', 0),
-(6, 'Khấu Thị Nguyệt Anh', 'dethuong6@gmail.com', '1234567777', 6, 'chuyên về bất động sản', 0);
+(6, 'Khấu Thị Nguyệt Anh', 'dethuong6@gmail.com', '1234567777', 6, 'chuyên về bất động sản', 0),
+(7, 'Khấu Thị Nguyệt Anh', 'nguyetanh12@gmail.com', '0968304189', 6, 'dể thương', 0),
+(8, 'Bùi Ngọc Thành', 'thanh@gmail.com', '4565462', 6, 'dđạp chai', 0),
+(9, 'Khấu Nguyệt Anh 2', 'nguyetanh13@gmail.com', '096830418', 6, 'de xuong', 0),
+(10, 'Khấu Nguyệt Anh 3', 'nguyetanh14@gmail.com', '096830419', 6, 'de xuong', 0),
+(11, 'Khấu Nguyệt Anh 4', 'nguyetanh12@gmail.com', '096830420', 6, 'de xuong', 0),
+(12, 'Khấu Nguyệt Anh 5', 'nguyetanhthanh@gmail.com', '096830421', 6, 'de xuong', 0),
+(13, 'Khấu Nguyệt Anh 6', 'nguyetanh15@gmail.com', '096830421', 6, 'de xuong', 0),
+(14, 'Khấu Nguyệt Anh 7', 'nguyetanh16@gmail.com', '096830423', 6, 'de xuong', 0),
+(15, 'Khấu Nguyệt Anh 8', 'nguyetanh17@gmail.com', '096830424', 6, 'de xuong', 0),
+(16, 'Bùi Ngọc Thành', 'thanh@gmail.com1', '45654622', 6, 'dđạp chai', 0),
+(41, 'Khấu Nguyệt Anh 2', 'nguyetanh13@gmail.com2', '0968304182', 6, 'de xuong', 0),
+(42, 'Khấu Nguyệt Anh 4', 'nguyetanh12@gmail.com4', '0968304202', 6, 'de xuong', 0),
+(43, 'Khấu Nguyệt Anh 5', 'nguyetanhthanh@gmail.com6', '0968304212', 6, 'de xuong', 0),
+(44, 'Khấu Nguyệt Anh 6', 'nguyetanh15@gmail.com7', '0968304212', 6, 'de xuong', 0),
+(45, 'Khấu Nguyệt Anh 7', 'nguyetanh16@gmail.com8', '0968304232', 6, 'de xuong', 0),
+(46, 'Khấu Nguyệt Anh 8', 'nguyetanh17@gmail.com9', '0968304242', 6, 'de xuong', 0),
+(47, 'Khấu Thị Nguyệt Anh 9', 'nguyetanh12@gmail.com', '0968304189', 10, 'dể thương', 0),
+(48, 'Bùi Ngọc Thành', 'thanh@gmail.com1', '45654622', 10, 'dđạp chai', 0),
+(49, 'Khấu Nguyệt Anh 2', 'nguyetanh13@gmail.com2', '0968304182', 10, 'de xuong', 0),
+(50, 'Khấu Nguyệt Anh 3', 'nguyetanh14@gmail.com3', '096830419', 10, 'de xuong', 0),
+(51, 'Khấu Nguyệt Anh 4', 'nguyetanh12@gmail.com4', '0968304202', 10, 'de xuong', 0),
+(52, 'Khấu Nguyệt Anh 5', 'nguyetanhthanh@gmail.com6', '0968304212', 10, 'de xuong', 0),
+(53, 'Khấu Nguyệt Anh 6', 'nguyetanh15@gmail.com7', '0968304212', 10, 'de xuong', 0),
+(54, 'Khấu Nguyệt Anh 7', 'nguyetanh16@gmail.com8', '0968304232', 10, 'de xuong', 0),
+(55, 'Khấu Nguyệt Anh 8', 'nguyetanh17@gmail.com9', '0968304242', 10, 'de xuong', 0),
+(56, 'Khấu Nguyệt Anh 3', 'nguyetanh14@gmail.com3', '0968304196', 5, 'de xuong', 0),
+(57, 'Khấu Nguyệt Anh 5', 'nguyetanhthanh@gmail.com67', '09683042126', 5, 'de xuong', 0),
+(58, 'Khấu Nguyệt Anh 6', 'nguyetanh15@gmail.com767', '09683042122', 5, 'de xuong', 0),
+(59, 'Khấu Nguyệt Anh 7', 'nguyetanh16@gmail.com87', '09683042327', 5, 'de xuong', 0);
 
 -- --------------------------------------------------------
 
@@ -147,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `tbl_admin_users` (
 
 INSERT INTO `tbl_admin_users` (`id`, `username`, `fullname`, `email`, `company_id`, `mobile`, `password`, `block`, `user_type`) VALUES
 (4, 'sadpiglet21', 'Bùi Ngọc Thành5', 'thanhbn85@gmail.com', 6, '0964649810', 'e10adc3949ba59abbe56e057f20f883e', 0, 'A'),
-(5, 'sadpiglet25', 'Bùi Ngọc Thành68', 'thanhbn89@gmail.com', 2, '0968304180', 'e10adc3949ba59abbe56e057f20f883e', 0, 'A'),
+(5, 'test2', 'Bùi Ngọc Thành68', 'thanhbn89@gmail.com', 2, '0968304180', '25d55ad283aa400af464c76d713c07ad', 0, 'A'),
 (6, 'demo1', 'thanhthanhdemo1', 'sadpiglet230@yahoo.com', 2, '23332434', 'e368b9938746fa090d6afd3628355133', 0, 'A'),
 (10, 'demo', NULL, 'abhishek@devzone.co.in', 0, NULL, 'fe01ce2a7fbac8fafaed7c982a04e229', 0, 'SA');
 
@@ -177,6 +205,24 @@ INSERT INTO `tbl_cms` (`id`, `label`, `content`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `t_group_customer`
+--
+
+CREATE TABLE IF NOT EXISTS `t_group_customer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `t_group_customer`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -200,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=649 ;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- Dumping data for table `users`
+--
+
