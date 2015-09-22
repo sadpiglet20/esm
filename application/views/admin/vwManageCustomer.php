@@ -24,8 +24,10 @@ Downloaded from http://devzone.co.in
               <li><a href="/admin/customer/"><i class="icon-dashboard"></i> Customer</a></li>
               <li class="active"><i class="icon-file-alt"></i> List</li>
               
-              
-              <button class="btn btn-primary" type="button" style="float:right;" id="add_new_product">Add New</button>
+              <div style="float:right;" >
+	              <button class="btn btn-primary" type="button" id="customer_import">Import</button>
+	              <button class="btn btn-primary" type="button" id="add_new_product">Add New</button>
+              </div>
               <div style="clear: both;"></div>
             </ol>
           </div>
@@ -61,9 +63,15 @@ $this->load->view('admin/vwFooter');
 			$('#add_new_product').click(function(){
 				window.location.href = '/admin/customer/add_customer';
 			});
+			
+			$('#customer_import').click(function(){
+				window.location.href = '/admin/customer/import';
+			});
+			
 			$('[id^="edit_"]').live('click',function() { edit_click(this); return false;});
 			$('[id^="delete_"]').live('click',function() { delete_search_click(this); return false; });
 			$('[id^="paging_link"] a').live('click',function() { pagination_link_click(this); return false; });
+			
 		});
 		
 		function pagination_link_click(elm) {

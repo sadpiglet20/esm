@@ -64,6 +64,7 @@ class Home extends CI_Controller {
                             'username' => $res['username'],
                             'email' => $res['email'],                            
                             'is_admin_login' => true,
+                            'company_id' => $res['company_id'],
                             'user_type' => $res['user_type']
                                 )
                         );

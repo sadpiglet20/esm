@@ -36,7 +36,7 @@ define('FOPEN_WRITE_CREATE',					'ab');
 define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
-
+define('EXCEL_EXPORT_DIR', 'D:/wamp/www/esm/esm/application/common/excel_import/');
 
 /* 
  * ARK Admin V2
