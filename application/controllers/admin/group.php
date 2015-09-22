@@ -113,6 +113,51 @@ class Group extends CI_Controller {
             return FALSE;
         }
 	}  
+
+	// not duplicate email/sms in the same group
+	public function customer() {
+		$this->load->model('group_customer_model');
+		// show list customer with checkbox, pagination,button add emails to groups
+		$groupId = $this->input->post('group_id');
+		if (empty($groupId)) {
+			$groupId = $this->session->userdata('group_id');
+			if (empty($groupId)) {
+				redirect('admin/home');
+			}
+		} else {
+			$this->session->set_userdata('group_id', $groupId);
+		}
+		$arr['groupId'] = $groupId;
+
+        $arr['page'] = 'group';
+		$id = $this->input->post('id');
+		if (!empty($id)) {
+			$this->group_customer_model->delGroupEmail($id);
+		}
+		// pagination >>>
+		$offset = 0;  	
+		
+	  	$cnt = $this->group_customer_model->countAll($groupId);
+	  	$arr['dataItem'] = $this->group_customer_model->findPageItems($offset, ADMIN_PAGE_MAX_RECORD ,$groupId);
+	  	$paging_link = get_link_pagination('admin/group/customer', $cnt,$offset, ADMIN_PAGE_MAX_RECORD, 1, TRUE);
+	  	$arr['paging_link'] = $paging_link;
+		$arr['user_id'] = $this->user_id;
+		// <<< pagination		
+        $this->load->view('admin/vwManageGroupEmail',$arr);		
+	}
+	
+	
+	public function cus_import() {
+	// when import customer to group:
+	    // 1. Insert to customer check validate duplicate like import to customer 
+	    // 2.  Check if (1) not duplicate  or duplicate but belongs to this user_id { 
+	    //      Insert to t_group_customer if not exist       
+	     //  }		
+	}
+
+	public function cus_export() {
+		// Export just get data and export
+	} 
 }
 
 /* End of file welcome.php */

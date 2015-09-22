@@ -104,7 +104,7 @@ class Group_model extends CI_Model
 	// for admin
     function findPageItems($offset, $limit = ADMIN_PAGE_MAX_RECORD, $user_id) {
         $sql = " select * from m_group
-                 where 1 = 1 and user_id = ". $user_id . " order by id desc limit ?,?  ";
+                 where 1 = 1 and user_id = ". $user_id . " order by group_name asc limit ?,?  ";
 		$query = $this->db->query($sql ,array(@intval($offset), @intval($limit)));
         $result = $query->result_array();
         if (!empty($result) && count($result) > 0) {

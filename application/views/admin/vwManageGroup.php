@@ -40,6 +40,7 @@ Downloaded from http://devzone.co.in
         <?php } ?>
         <form role="form" id="form" name="form" action="" method="post">
         	<input type="hidden" value="" id="id" name="id">
+        	<input type="hidden" value="" id="group_id" name="group_id">
         	<input type="hidden" value="<?php echo $user_id;?>" id="user_id" name="user_id">
         </form>
       </div><!-- /#page-wrapper -->
@@ -64,6 +65,8 @@ $this->load->view('admin/vwFooter');
 			$('[id^="edit_"]').live('click',function() { edit_click(this); return false;});
 			$('[id^="delete_"]').live('click',function() { delete_search_click(this); return false; });
 			$('[id^="paging_link"] a').live('click',function() { pagination_link_click(this); return false; });
+			$('[id^="em_"]').live('click',function() { em_click(this); return false; });
+			
 		});
 		
 		function pagination_link_click(elm) {
@@ -106,6 +109,20 @@ $this->load->view('admin/vwFooter');
 				$(location).attr('href', '/admin/group/add_group/' + $('#id').val());    
 			}
 		}		
+		
+		function em_click(elm)
+		{
+			var id = -1;
+			if( $(elm).attr('id').indexOf("em_") != -1 ) {
+				id = parseInt($(elm).attr('id').replace("em_", ""));
+				if (isNaN(id)) {
+					id = -1;
+				}
+				$('#group_id').val(id);
+				$('#form').attr('action', '/admin/group/customer').submit();  
+			}
+		}
+		
 		
 		function delete_search_click(elm)
 		{

@@ -104,7 +104,7 @@ class Company_model extends CI_Model
 	// for admin
     function findPageItems($offset, $limit = ADMIN_PAGE_MAX_RECORD) {
         $sql = " select * from company
-                 where 1 = 1 order by id desc limit ?,?  ";
+                 where 1 = 1 order by company_name asc limit ?,?  ";
 		$query = $this->db->query($sql ,array(@intval($offset), @intval($limit)));
         $result = $query->result_array();
         if (!empty($result) && count($result) > 0) {

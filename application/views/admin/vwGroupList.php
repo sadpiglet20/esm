@@ -17,7 +17,7 @@
 	                    <td><?php echo $item['description'];?></td>
 	                    <td></td>
 	                    <td>
-	                    	<button type="button" class="btn btn-primary" id="esm_<?php echo $item['id'];?>">Manage Emails</button>
+	                    	<button type="button" class="btn btn-primary" id="em_<?php echo $item['id'];?>">Manage Emails</button>
 	                    	<button type="button" class="btn btn-primary" id="edit_<?php echo $item['id'];?>">Edit</button>
 	                    	<button type="button" class="btn btn-primary" id="delete_<?php echo $item['id'];?>">Delete</button>
 	                    </td>

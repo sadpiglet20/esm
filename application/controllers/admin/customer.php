@@ -163,12 +163,12 @@ class Customer extends CI_Controller {
 						$sheet = $objPHPExcel->getActiveSheet();
 						$rowStart = 2;
 						$batchLimit = 500;
-						$arrColumns = array('id' => 'A',
+						/*$arrColumns = array('id' => 'A',
 						              	  'customer_name' => 'B',
 						              	  'customer_email' => 'C',
 							              'customer_phone' => 'D',
 							              'description' => 'E'
-										 );
+										 );*/
 						$i = $rowStart;
 						$arrData = array();
 						$dupCustomer = 0;
@@ -212,37 +212,87 @@ class Customer extends CI_Controller {
 			}
 		}
 		$this->load->view('admin/vwCustomerImport',$arr);
-		/*$this->load->library('PHPExcel');
+	} 
+
+	public function export() {
+		$arr['user_id'] = $this->user_id;
+		// export 
+		$this->load->library('PHPExcel');
 		$objPHPExcel = new PHPExcel();
-		$objPHPExcel->getProperties()->setTitle("title")
+		$objPHPExcel->getProperties()->setTitle("Customer Export " . date('Ymd'))
 		                 ->setDescription("description");
-		
+		// set design for beauty
 		// Assign cell values
 		$objPHPExcel->setActiveSheetIndex(0);
-		$objPHPExcel->getActiveSheet()->setCellValue('A1', 'cell value here');
-		
+		$sheet = $objPHPExcel->getActiveSheet();
+		$this->load->model('group_customer_model');
+		$arrCustomer = $this->group_customer_model->findAllCustomers($this->user_id);
+		$sheet->setCellValue('A1', 'STT');
+		$sheet->setCellValue('B1', 'Họ và Tên');
+		$sheet->setCellValue('C1', 'Email');
+		$sheet->setCellValue('D1', 'SĐT');
+		$sheet->setCellValue('E1', 'Ghi Chú');
+		$sheet->getStyle('A1')->applyFromArray(
+							    array(
+							        'fill' => array(
+							            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+							            'color' => array('rgb' => 'FFFF99')
+							        )
+							    ));
+		$sheet->getStyle('B1')->applyFromArray(
+							    array(
+							        'fill' => array(
+							            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+							            'color' => array('rgb' => 'FFFF99')
+							        )
+							    ));
+		$sheet->getStyle('C1')->applyFromArray(
+							    array(
+							        'fill' => array(
+							            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+							            'color' => array('rgb' => 'FFFF99')
+							        )
+							    ));
+		$sheet->getStyle('D1')->applyFromArray(
+							    array(
+							        'fill' => array(
+							            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+							            'color' => array('rgb' => 'FFFF99')
+							        )
+							    ));
+		$sheet->getStyle('E1')->applyFromArray(
+							    array(
+							        'fill' => array(
+							            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+							            'color' => array('rgb' => 'FFFF99')
+							        )
+							    ));																																
+		$row = 2;
+		foreach ($arrCustomer as $v) {
+			$sheet->setCellValue('A' . $row, $row-1);
+			$sheet->setCellValue('B' . $row, $v['customer_name']);
+			$sheet->setCellValue('C' . $row, $v['customer_email']);
+			$sheet->getCell('D' . $row)->setValueExplicit($v['customer_phone'], PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValue('E' . $row, $v['description']);
+			$row++;	
+		}
 	    @ob_end_clean();
-		$domain_name = str_replace('http://', '', base_url());
-		$domain_name = substr($domain_name, 0, -1);
 		$file_name = 'CustomerList_' . date('YmdHis') .'.xls';
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="'. $file_name .'"');
 		header('Cache-Control: max-age=0');
-		// If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');
-
-		// If you're serving to IE over SSL, then the following may be needed
 		header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 		header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 		header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 		header ('Pragma: public'); // HTTP/1.0
-	
 	    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 	    @ob_end_clean();
 	
 	    $objWriter->save('php://output');
 	    $objPHPExcel->disconnectWorksheets();
-	    unset($objPHPExcel);*/
+	    unset($objPHPExcel);			
+		// $this->load->view('admin/vwCustomerExport',$arr);
 	} 
 }
 
