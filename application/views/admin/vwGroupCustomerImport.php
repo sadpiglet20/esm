@@ -21,7 +21,7 @@ Downloaded from http://devzone.co.in
           <div class="col-lg-12">
             <h1>Customer <small>Import Customer Module</small></h1>
             <ol class="breadcrumb">
-              <li><a href="/admin/customer/"><i class="icon-dashboard"></i> Customer</a></li>
+              <li><a href="/admin/group/customer/"><i class="icon-dashboard"></i>Group Customer</a></li>
               <li class="active"><i class="icon-file-alt"></i> Import</li>
               
               <div style="float:right;" >
@@ -58,7 +58,8 @@ Downloaded from http://devzone.co.in
 				  	<div class="alert alert-warning">
 					  <strong>Warning!</strong> Only accept excel (*.xls), correct format <u><i data-toggle="tooltip" title="Colum A:SEQ,Colum B:Name,Colum C:Email,Colum D:Phone,Colum E:Description">hover here for more details</i></u>
 					</div>
-		        	<input type="hidden" value="<?php echo $user_id;?>" id="user_id" name="user_id">
+		        	<input type="hidden" value="<?php echo $group_id;?>" id="group_id" name="group_id">
+        			<input type="hidden" value="<?php echo $user_id;?>" id="user_id" name="user_id">
 				    <label for="fName">File Name:</label>
 				    <span class="btn btn-primary btn-file">
 				        Browse <input type="file" id="fName" name="fName">
@@ -83,8 +84,5 @@ $this->load->view('admin/vwFooter');
 			      }
 			  });
 			}			
-			/*$('#add_new_product').click(function(){
-				window.location.href = '/admin/customer/add_customer';
-			}); */
 		});
 </script>

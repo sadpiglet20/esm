@@ -19,24 +19,23 @@ Downloaded from http://devzone.co.in
 
         <div class="row">
           <div class="col-lg-12">
-            <h1>Group <small>Customer</small></h1>
+            <h1>Group <small>Manage Group Customer Module</small></h1>
             <ol class="breadcrumb">
-              <li><a href="/admin/group/"><i class="icon-dashboard"></i> Group</a></li>
-              <li class="active"><i class="icon-file-alt"></i> List Customers of <?php echo @$group_name;?></li>
+              <li><a href="/admin/group/customer"><i class="icon-dashboard"></i> Group Customer</a></li>
+              <li class="active"><i class="icon-file-alt"></i> List Customers</li>
               
-              <!-- Add New/Edit must check like cus_import-->
               <div style="float:right;" >
-	              <button class="btn btn-primary" type="button" id="customer_import">Import</button>
-	              <button class="btn btn-primary" type="button" id="customer_export">Export</button>
-	              <button class="btn btn-primary" type="button" id="add_new_product">Update Manual</button>
-	           </div>              
+              </div>
               <div style="clear: both;"></div>
             </ol>
           </div>
         </div><!-- /.row -->
-            <div class="table-responsive" id='box'>
-              <?php echo $this->load->view('admin/vwGroupEmailList');?>
-            </div>
+        	<form role="form" action="" method="post">
+	            <div class="table-responsive" id='box'>
+	              <?php echo $this->load->view('admin/vwGroupCustomerList');?>
+	            </div>
+	        	<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
+			</form>
         <?php if (!empty($dataItem)) { ?>
         		 <ul class="pagination pagination-sm" id="paging_link">
 	             <?php echo $paging_link;?>
@@ -64,19 +63,21 @@ $this->load->view('admin/vwFooter');
 			  });
 			}			
 			$('#add_new_product').click(function(){
-				window.location.href = '/admin/group/add_customer';
+				window.location.href = '/admin/customer/add_customer';
 			});
+			
 			$('#customer_import').click(function(){
-				window.location.href = '/admin/group/cus_import';
+				window.location.href = '/admin/customer/import';
 			});
 
 			$('#customer_export').click(function(){
-				window.location.href = '/admin/group/cus_export';
-			});	
+				window.location.href = '/admin/customer/export';
+			});			
+			
+			
 			$('[id^="edit_"]').live('click',function() { edit_click(this); return false;});
 			$('[id^="delete_"]').live('click',function() { delete_search_click(this); return false; });
 			$('[id^="paging_link"] a').live('click',function() { pagination_link_click(this); return false; });
-			$('[id^="em_"]').live('click',function() { em_click(this); return false; });
 			
 		});
 		
@@ -89,10 +90,11 @@ $this->load->view('admin/vwFooter');
 				}
 		$.ajax({
 				type: "POST",
-				url: "<?php echo site_url('admin/ajax/get_group_customer_list/')?>",
+				url: "<?php echo site_url('admin/ajax/get_customer_list/')?>",
 				data: {
 					num_items: <?php echo ADMIN_PAGE_MAX_RECORD;?>,
 					offset: _offset,
+					user_id: $('#user_id').val(),
 					group_id: $('#group_id').val()
 				},
 				success: function(data) {
@@ -117,27 +119,13 @@ $this->load->view('admin/vwFooter');
 					id = -1;
 				}
 				$('#id').val(id);
-				$(location).attr('href', '/admin/group/add_customer/' + $('#id').val());    
+				$(location).attr('href', '/admin/customer/add_customer/' + $('#id').val());    
 			}
 		}		
 		
-		function em_click(elm)
-		{
-			var id = -1;
-			if( $(elm).attr('id').indexOf("em_") != -1 ) {
-				id = parseInt($(elm).attr('id').replace("em_", ""));
-				if (isNaN(id)) {
-					id = -1;
-				}
-				$('#group_id').val(id);
-				$('#form').attr('action', '/admin/group/customer').submit();  
-			}
-		}
-		
-		
 		function delete_search_click(elm)
 		{
-			var r = confirm("Do you want to delete this group?");
+			var r = confirm("Do you want to delete this customer?");
 			if (r == true) {
 				var id = -1;
 				if( $(elm).attr('id').indexOf("delete_") != -1 ) {

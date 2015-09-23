@@ -102,9 +102,13 @@ class Customer_model extends CI_Model
 	}
 	
 	// for admin
-    function findPageItems($offset, $limit = ADMIN_PAGE_MAX_RECORD, $user_id) {
+    function findPageItems($offset, $limit = ADMIN_PAGE_MAX_RECORD, $user_id, $group_id = '') {
         $sql = " select * from m_customer
-                 where 1 = 1 and user_id = ". $user_id . " order by customer_name asc limit ?,?  ";
+                 where 1 = 1 and user_id = ". $user_id;
+        if (!empty($group_id)) {
+				$sql .= " and id not in (select customer_id from t_group_customer where group_id = {$group_id})"; 			
+		}         
+        $sql .= " order by customer_name asc limit ?,?  ";
 		$query = $this->db->query($sql ,array(@intval($offset), @intval($limit)));
         $result = $query->result_array();
         if (!empty($result) && count($result) > 0) {
@@ -114,8 +118,11 @@ class Customer_model extends CI_Model
     }
     
 		// for admin
-    function countAll($user_id) {
+    function countAll($user_id, $group_id = '') {
     	$sql = " select count(id) cnt from m_customer where delete_flag = 0 and user_id = " . $user_id;
+		if (!empty($group_id)) {
+				$sql .= " and id not in (select customer_id from t_group_customer where group_id = {$group_id})"; 			
+		}
     	$query = $this->db->query($sql);
     	$result = $query->row_array();
     	if (!empty($result) && count($result) > 0) {
