@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="abhishek@devzone.co.in">
 
-     <title>Free Codeigniter Admin Panel with Twitter Bootstrap 3.0 - .arkAdminPanel Ver 2.0 http://devzone.co.in</title>
+     <title>Admin Panel</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo HTTP_CSS_PATH; ?>bootstrap.css" rel="stylesheet">
@@ -44,7 +44,7 @@ Downloaded from http://devzone.co.in
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <a class="navbar-brand" href="<?php echo base_url(); ?>admin">ARK Admin Panel v2</a>
+            <a class="navbar-brand" href="<?php echo base_url(); ?>admin">Admin Panel</a>
         </div>
  <?php 
 // Define a default Page
@@ -54,7 +54,7 @@ Downloaded from http://devzone.co.in
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li <?php echo  $pg =='dash' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-<li <?php echo  $pg =='cms' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/cms"><i class="fa fa-file"></i> CMS</a></li>
+<!-- <li <?php echo  $pg =='cms' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/cms"><i class="fa fa-file"></i> CMS</a></li> -->
 			<?php 
 			   $gblUserTypeSA =  $this->session->userdata('user_type');
 			if (!empty($gblUserTypeSA) && $gblUserTypeSA == 'SA') { ?>
@@ -63,13 +63,13 @@ Downloaded from http://devzone.co.in
             <?php } ?>
             <li <?php echo  $pg =='group' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/group"><i class="fa fa-file"></i> Groups</a></li>
             <li <?php echo  $pg =='customer' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/customer"><i class="fa fa-file"></i> Customers</a></li>
-            <li <?php echo  $pg =='contact' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/contactus"><i class="fa fa-file"></i> Contact Us</a></li>
+            <!-- <li <?php echo  $pg =='contact' ? 'class="active"' : '' ?>><a href="<?php echo base_url(); ?>admin/contactus"><i class="fa fa-file"></i> Contact Us</a></li> -->
             
         
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
-            <li class="dropdown messages-dropdown">
+            <!--<li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">7 New Messages</li>
@@ -102,8 +102,8 @@ Downloaded from http://devzone.co.in
                 <li class="divider"></li>
                 <li><a href="#">View Inbox <span class="badge">7</span></a></li>
               </ul>
-            </li>
-            <li class="dropdown alerts-dropdown">
+            </li> -->
+            <!-- <li class="dropdown alerts-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span class="badge">3</span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Default <span class="label label-default">Default</span></a></li>
@@ -115,7 +115,7 @@ Downloaded from http://devzone.co.in
                 <li class="divider"></li>
                 <li><a href="#">View All</a></li>
               </ul>
-            </li>
+            </li>-->
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->session->userdata('username') ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">

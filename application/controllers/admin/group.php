@@ -279,6 +279,7 @@ class Group extends CI_Controller {
 			}
 			redirect('admin/group/customer');
 		}
+		$arr['isHasData'] = $cnt > 0;
 		$this->load->view('admin/vwAddGroupCustomer',$arr);
 	}    
 	

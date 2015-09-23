@@ -34,7 +34,9 @@ Downloaded from http://devzone.co.in
 	            <div class="table-responsive" id='box'>
 	              <?php echo $this->load->view('admin/vwGroupCustomerList');?>
 	            </div>
-	        	<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
+	            <?php if ($isHasData) {?>
+	        		<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
+	        	<?php }?>
 			</form>
         <?php if (!empty($dataItem)) { ?>
         		 <ul class="pagination pagination-sm" id="paging_link">
